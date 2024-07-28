@@ -1,9 +1,9 @@
-const API_URL = 'https://jsonplaceholder.typicode.com/posts'; // Simulate API URL
+const API_URL = 'https://jsonplaceholder.typicode.com/posts'; // Simulating API URL
 
 // Array to store quotes
 let quotes = JSON.parse(localStorage.getItem('quotes')) || [
   { text: "You have to believe in yourself when no one else does.", category: "Motivation" },
-  { text: "By being yourself, you put something wonderful in the world that was not there before.", category: "Inspiration" },
+  { text: "By being yourself, you put something wonderful in the world that was not there before.", category: "Motivation" },
 ];
 
 // Function to save quotes to local storage
@@ -24,7 +24,7 @@ function showRandomQuote() {
   sessionStorage.setItem('lastViewedQuote', JSON.stringify(quote));
 }
 
-// Function to create and add a new quote
+// Function to createadd new Quote Form
 function createAddQuoteForm() {
   const newQuoteText = document.getElementById('newQuoteText').value.trim();
   const newQuoteCategory = document.getElementById('newQuoteCategory').value.trim();
@@ -44,7 +44,7 @@ function createAddQuoteForm() {
   }
 }
 
-// Function to populate categories dynamically
+// Function to populate categories
 function populateCategories() {
   const categoryFilter = document.getElementById('categoryFilter');
   const categories = [...new Set(quotes.map(quote => quote.category))];
@@ -77,9 +77,9 @@ function getFilteredQuotes() {
   return quotes.filter(quote => quote.category === selectedCategory);
 }
 
-// Function to export quotes to a JSON file
+// Function to export quotes to a JSON
 function exportToJsonFile() {
-  const dataStr = JSON.stringify(quotes, null, 2); // Pretty-print JSON
+  const dataStr = JSON.stringify(quotes, null, 2); 
   const blob = new Blob([dataStr], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
 
@@ -88,10 +88,10 @@ function exportToJsonFile() {
   linkElement.setAttribute('download', 'quotes.json');
   linkElement.click();
 
-  URL.revokeObjectURL(url); // Clean up
+  URL.revokeObjectURL(url);
 }
 
-// Function to import quotes from a JSON file
+// Function to import quotes from a JSON 
 function importFromJsonFile(event) {
   const fileReader = new FileReader();
   fileReader.onload = function(event) {
@@ -140,7 +140,7 @@ async function postQuoteToServer(quote) {
   }
 }
 
-// Function to sync quotes with the server
+// Function to sync quotes
 async function syncQuotes() {
   const serverQuotes = await fetchQuotesFromServer();
   const localQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
