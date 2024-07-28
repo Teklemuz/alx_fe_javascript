@@ -1,4 +1,4 @@
-const API_URL = 'https://jsonplaceholder.typicode.com/posts'; // Simulated API
+const API_URL = 'https://jsonplaceholder.typicode.com/posts'; // Simulate API
 
 // Array to store quotes
 let quotes = JSON.parse(localStorage.getItem('quotes')) || [
