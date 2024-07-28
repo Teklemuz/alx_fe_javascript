@@ -24,10 +24,11 @@ function showRandomQuote() {
   sessionStorage.setItem('lastViewedQuote', JSON.stringify(quote));
 }
 
-// Function to add a new quote
+// Function to create and add a new quote
 function createAddQuoteForm() {
   const newQuoteText = document.getElementById('newQuoteText').value.trim();
   const newQuoteCategory = document.getElementById('newQuoteCategory').value.trim();
+  
   if (newQuoteText && newQuoteCategory) {
     const newQuote = { text: newQuoteText, category: newQuoteCategory };
     quotes.push(newQuote);
@@ -78,15 +79,16 @@ function getFilteredQuotes() {
 
 // Function to export quotes to a JSON file
 function exportToJsonFile() {
-  const dataStr = JSON.stringify(quotes, null, 2);
-  const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-
-  const exportFileDefaultName = 'quotes.json';
+  const dataStr = JSON.stringify(quotes, null, 2); // Pretty-print JSON
+  const blob = new Blob([dataStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
 
   const linkElement = document.createElement('a');
-  linkElement.setAttribute('href', dataUri);
-  linkElement.setAttribute('download', exportFileDefaultName);
+  linkElement.setAttribute('href', url);
+  linkElement.setAttribute('download', 'quotes.json');
   linkElement.click();
+
+  URL.revokeObjectURL(url); // Clean up
 }
 
 // Function to import quotes from a JSON file
@@ -170,11 +172,11 @@ window.onload = function() {
 }
 
 // Periodically sync quotes with the server
-setInterval(syncQuotes, 30000); // Syncs every 30 seconds
+setInterval(syncQuotes, 30000);
 
 // Event listeners
 document.getElementById('newQuote').addEventListener('click', showRandomQuote);
-document.getElementById('addQuote').addEventListener('click', addQuote);
+document.getElementById('addQuote').addEventListener('click', createAddQuoteForm);
 document.getElementById('exportQuotes').addEventListener('click', exportToJsonFile);
 document.getElementById('importFile').addEventListener('change', importFromJsonFile);
 document.getElementById('categoryFilter').addEventListener('change', filterQuotes);
