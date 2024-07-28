@@ -1,4 +1,4 @@
-const API_URL = 'https://jsonplaceholder.typicode.com/posts'; // Mock API URL
+const API_URL = 'https://jsonplaceholder.typicode.com/posts'; // Simulate API URL
 let quotes = JSON.parse(localStorage.getItem('quotes')) || [];
 let lastSync = localStorage.getItem('lastSync') || new Date().toISOString();
 
@@ -139,6 +139,7 @@ async function syncWithServer() {
 // Set up periodic syncing every 5 minutes
 setInterval(syncWithServer, 5 * 60 * 1000); // 5 minutes
 
-// Initial setup
-updateCategoryFilter(); // Populate the category filter dropdown
-showRandomQuote(); // Display an initial quote
+// Attach event listeners
+document.getElementById('newQuote').addEventListener('click', showRandomQuote);
+document.getElementById('addQuote').addEventListener('click', addQuote);
+document.getElementById('exportQuotes').addEventListener('click', exportQuotes);
